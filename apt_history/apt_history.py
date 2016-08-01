@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 import argparse
-import sys
 import re
 import os
 import copy
@@ -166,9 +165,9 @@ def readNextPackageChangeSet(lines):
             
 def abbreviate(string):
     if len(string) > 20:
-      return string[:17] + '...'
+        return string[:17] + '...'
     else:
-      return string
+        return string
             
 def main():
     parser = argparse.ArgumentParser(description='APT history')
@@ -208,5 +207,4 @@ def main():
             command.extend(rollbackSet.getAptArgs())
             print('  > Running %s...' % (' '.join(command)))
             if not args.simulate:
-              process = Popen(command, env=callEnv)
-              process.wait()
+                call(command, env=callEnv)
