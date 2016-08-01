@@ -31,14 +31,12 @@ def main():
           'DEBIAN_FRONTEND': 'noninteractive'
         });
         
-        print(callEnv);
-        
         for rollbackIndex in range(len(packageChangeSets) - args.rollback_count, len(packageChangeSets)):
             rollbackSets.append(packageChangeSets[rollbackIndex].createrollbackSet())
     
         for rollbackSet in rollbackSets:
             print('Rollback for %s (%s)' % (apt_history.abbreviate(rollbackSet.originalCommand), rollbackSet.originalDate))
-            command = ['apt-get', '-yq', '--allow-downgrades', '-o Dpkg::Options::="--force-confnew"', '-o Dpkg::Options::="--force-confold"', '-o Dpkg::Options::="--force-confdef"', 'install']
+            command = ['apt-get', '-yq', '--allow-downgrades', '-o Dpkg::Options::="--refuse-confnew"', '-o Dpkg::Options::="--force-confold"', 'install']
             command.extend(rollbackSet.getAptArgs())
             print('  > Running %s...' % (' '.join(command)))
             if not args.simulate:
