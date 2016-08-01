@@ -2,10 +2,11 @@
 import re
 
 class PackageChangeSet:
-    def __init__(self, originalDate, originalCommand, packageChanges):
+    def __init__(self, originalDate, originalCommand, packageChanges, error):
         self.originalDate = originalDate
         self.originalCommand = originalCommand
         self.packageChanges = packageChanges
+        self.error = error
         
     def getAptArgs(self):
         aptArguments = []
@@ -16,13 +17,16 @@ class PackageChangeSet:
         return aptArguments
     
     def createrollbackSet(self):
+        if self.error:
+            raise Exception('Cannot rollback because changeset contains an error')
+        
         result = []
         packageChanges = self.packageChanges
         
         for packageChange in packageChanges:
             result.append(packageChange.createRollback())
                 
-        return PackageChangeSet(self.originalDate, self.originalCommand, result)
+        return PackageChangeSet(self.originalDate, self.originalCommand, result, self.error)
                 
 class InstalledPackage:
     def __init__(self, name, arch, version):
@@ -143,6 +147,8 @@ def readNextPackageChangeSet(lines):
                     return PackageChangeSet(date, command, packageChanges)
                 elif line.startswith('Commandline:'):
                     command = (line[12:]).strip() 
+                elif line.startswith('Error:'):
+                    command = (line[6:]).strip() 
                 elif line.startswith('Install:'):
                     packageChanges.extend(parseInstalledPackages((line[8:]).lstrip())) 
                 elif line.startswith('Downgrade:'):
