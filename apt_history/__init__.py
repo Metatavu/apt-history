@@ -36,4 +36,4 @@ def main():
             command.extend(rollbackSet.getAptArgs())
             print('  > Running %s...' % (' '.join(command)))
             if not args.simulate:
-                call(command)
+                call(command, shell=True)
