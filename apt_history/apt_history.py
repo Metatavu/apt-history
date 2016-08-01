@@ -134,7 +134,7 @@ def readNextPackageChangeSet(lines):
     
     while 1:
         try:
-            line = lines.next()
+            line = next(lines)
             if line and line.strip():
                 if line.startswith('Start-Date:'):
                     date = (line[11:]).strip().replace('  ', ' ') 
