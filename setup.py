@@ -4,7 +4,7 @@ setup(
   packages = ['apt-history'],
   version = '0.1',
   description = 'apt history script',
-  author = 'Antti Leppä',
+  author = 'Antti Leppa',
   author_email = 'antti.leppa@metatavu.fi',
   url = 'https://github.com/Metatavu/apt-history',
   download_url = 'https://github.com/Metatavu/apt-history/tarball/0.1', 
