@@ -1,7 +1,7 @@
 import argparse
 import os
 import copy
-from subprocess import call
+import subprocess
 from apt_history import apt_history
             
 def main():
@@ -34,6 +34,11 @@ def main():
             print('Rollback for %s (%s)' % (apt_history.abbreviate(rollbackSet.originalCommand), rollbackSet.originalDate))
             command = ['apt-get', '-yq', '--allow-downgrades', '-o Dpkg::Options::="--refuse-confnew"', '-o Dpkg::Options::="--force-confold"', 'install']
             command.extend(rollbackSet.getAptArgs())
-            print('  > Running %s...' % (' '.join(command)))
             if not args.simulate:
-                call(command, shell=True)
+                process = subprocess.Popen(command, shell=True)
+                print('  > Running {}' % process.args)
+                process.wait()
+            else:
+                print('  > Would run {}' % command)
+                
+            
