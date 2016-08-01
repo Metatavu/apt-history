@@ -36,7 +36,7 @@ def main():
             command.extend(rollbackSet.getAptArgs())
             if not args.simulate:
                 process = subprocess.Popen(command, shell=True)
-                print('  > Running {}' % process.args)
+                print('  > Running {}'.format(process.args))
                 process.wait()
             else:
                 print('  > Would run {}' % command)
