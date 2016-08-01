@@ -2,12 +2,12 @@ from setuptools import setup
 setup(
   name = 'apt-history',
   packages = ['apt_history'],
-  version = '0.2.14',
+  version = '0.2.15',
   description = 'apt history script',
   author = 'Antti Leppa',
   author_email = 'antti.leppa@metatavu.fi',
   url = 'https://github.com/Metatavu/apt-history',
-  download_url = 'https://github.com/Metatavu/apt-history/tarball/0.2.14', 
+  download_url = 'https://github.com/Metatavu/apt-history/tarball/0.2.15', 
   keywords = ['apt'],
   classifiers = [],
   entry_points={

@@ -26,10 +26,6 @@ def main():
         
     if args.command == 'rollback':
         rollbackSets = []
-        callEnv = copy.copy(os.environ);
-        callEnv.update({
-          'DEBIAN_FRONTEND': 'noninteractive'
-        });
         
         for rollbackIndex in range(len(packageChangeSets) - args.rollback_count, len(packageChangeSets)):
             rollbackSets.append(packageChangeSets[rollbackIndex].createrollbackSet())
@@ -40,4 +36,4 @@ def main():
             command.extend(rollbackSet.getAptArgs())
             print('  > Running %s...' % (' '.join(command)))
             if not args.simulate:
-                call(command, env=callEnv)
+                call(command)

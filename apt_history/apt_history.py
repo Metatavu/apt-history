@@ -135,6 +135,7 @@ def readNextPackageChangeSet(lines):
     line = None
     date = None
     command = None
+    error = None
     
     while 1:
         try:
@@ -144,11 +145,11 @@ def readNextPackageChangeSet(lines):
                     date = (line[11:]).strip().replace('  ', ' ') 
                     packageChanges = []
                 elif line.startswith('End-Date:'):
-                    return PackageChangeSet(date, command, packageChanges)
+                    return PackageChangeSet(date, command, packageChanges, error)
                 elif line.startswith('Commandline:'):
                     command = (line[12:]).strip() 
                 elif line.startswith('Error:'):
-                    command = (line[6:]).strip() 
+                    error = (line[6:]).strip() 
                 elif line.startswith('Install:'):
                     packageChanges.extend(parseInstalledPackages((line[8:]).lstrip())) 
                 elif line.startswith('Downgrade:'):
