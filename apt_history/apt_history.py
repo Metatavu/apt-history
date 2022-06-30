@@ -158,6 +158,8 @@ def readNextPackageChangeSet(lines):
                     packageChanges.extend(parseUpgradedPackages((line[8:]).lstrip()))
                 elif line.startswith('Remove:'):
                     packageChanges.extend(parseRemovedPackages((line[7:]).lstrip()))
+                elif line.startswith('Requested-By:'):
+                    pass
                 else:
                     raise Exception('Invalid line: %s' % line)
         except StopIteration:
